@@ -1,0 +1,51 @@
+*{
+margin:0;
+padding:0;
+box-sizing: border-box;
+}
+
+
+
+.mainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100%;
+    background-image: url(Default_create_a_2d_game_theme_for_snake_game_0_de529eae-2f76-4e55-a0be-43c666b8a65e_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#board{
+    height: 90vmin;
+    width: 92vmin;
+    background: linear-gradient(to left top,rgb(231, 188, 222),rgb(177, 110, 146));
+    opacity: 92%;
+    border-radius: 30px;
+    box-shadow:
+    inset 0 -3em 3em rgba(0, 0, 0, 0.3),0.3em 0.3em 1em rgba(2, 2, 2, 0.6);
+    display: grid;
+    grid-template-rows: repeat(18 , 1fr);
+    grid-template-columns:repeat(18 , 1fr);
+}
+
+
+.head{
+    border-radius: 4px;
+    background-color: red;
+
+}
+
+.snake{
+    border-radius: 4px;
+    background-color: purple;
+}
+
+.food{
+    border-radius: 4px;
+    background-color: yellow;
+}
+
+
+
