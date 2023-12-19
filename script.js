@@ -10,12 +10,12 @@ const board = document.querySelector('#board');
 let snakeArr = [
     { x:13 , y : 15 }
 ]
-
+let score = 0;
 let food = { x:5 , y : 5 }
 
 // Constant & Variable
 let lastPaintTime = 0
-let speed = 2;
+let speed = 10;
 
 
 
@@ -31,10 +31,52 @@ function main(ctime){
     gameEngine();
 }
 
+function isCollide(sarr){
+    if(sarr[0].x === 0){
+        return true
+    }
+    if(sarr[0].x === 18){
+        return true
+    }
+    if(sarr[0].y === 18){
+        return true
+    }
+    if(sarr[0].y === 0){
+        return true
+    }
+    for(let i = 1 ; i < snakeArr.length; i++){
+        if(sarr[i].x === sarr[0].x && sarr[i].y === sarr[0].x){
+            return true
+        }
+    }
+}
+
+
 
 function gameEngine(){
     // Part 1 : Updating the Snake Array
+    if(isCollide(snakeArr)){
+        inputDir = {x : 0 , y : 0};
+        alert("Game Over Press Any Key To Play Again");
+        snakeArr = [ { x:13 , y : 15 } ]
+        score = 0
+        
+    }
 
+    // If Snake Eten The Food
+    if(snakeArr[0].y === food.y && snakeArr[0].x === food.x){
+        snakeArr.unshift({x : snakeArr[0].x + inputDir.x , y : snakeArr[0].y + inputDir.y});
+        let a = 2;
+        let b = 16;
+        food = {x : Math.round(a + (b - a)*Math.random()) , y : Math.round(a + (b - a)*Math.random())}
+    }
+
+    // Moving The Snake
+    for (let i = snakeArr.length - 2; i >= 0; i--) {
+        snakeArr[i + 1] = {...snakeArr[i]};
+    }
+    snakeArr[0].x += inputDir.x;
+    snakeArr[0].y += inputDir.y;
     // Pat2 : Render the Food of Snake
     // Render the Snake
 
@@ -74,16 +116,20 @@ window.addEventListener('keydown' , e=>{
     inputDir = {x : 0 , y : 1}
     switch (e.key) {
         case "ArrowUp":
-            console.log(e.key)
+            inputDir.x = 0;
+            inputDir.y = -1;
             break;
         case "ArrowDown":
-            console.log(e.key)
+            inputDir.x = 0;
+            inputDir.y = 1;
             break;
         case "ArrowRight":
-            console.log(e.key)
+            inputDir.x = 1;
+            inputDir.y = 0;
             break;
         case "ArrowLeft":
-            console.log(e.key)
+            inputDir.x = -1;
+            inputDir.y = 0;
             break;
     
         default:
