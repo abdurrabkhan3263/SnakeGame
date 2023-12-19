@@ -18,6 +18,7 @@ box-sizing: border-box;
 }
 
 #board{
+    user-select: none;
     height: 90vmin;
     width: 92vmin;
     background: linear-gradient(to left top,rgb(231, 188, 222),rgb(177, 110, 146));
@@ -28,16 +29,20 @@ box-sizing: border-box;
     display: grid;
     grid-template-rows: repeat(18 , 1fr);
     grid-template-columns:repeat(18 , 1fr);
+    cursor: pointer;
 }
 
 
 .head{
+    background: linear-gradient(rgb(103, 114, 157),rgb(33, 77, 255));
+    transform: scale(1.03);
     border-radius: 4px;
     background-color: red;
 
 }
 
 .snake{
+    margin: 2px;
     border-radius: 4px;
     background-color: purple;
 }
@@ -48,4 +53,23 @@ box-sizing: border-box;
 }
 
 
+.score{
+    font-family: 'New Tegomin', serif;
+/* font-family: 'Roboto', sans-serif; */
+    user-select: none;
+    font-size: 2.9vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: -20;
+    height: 150px;
+    width: 220px;
+    color: white;
+}
 
+#rscore{
+    padding:10px 0;
+}

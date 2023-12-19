@@ -1,12 +1,14 @@
 // Game Constants & Variable
 let inputDir = {x : 0 , y : 0};
-
+let hightScoree = [];
 
 
 
 
 // SELECTOR'S 
 const board = document.querySelector('#board');
+const realScore = document.querySelector('#rscore');
+const hightScore = document.querySelector('#hscore');
 let snakeArr = [
     { x:13 , y : 15 }
 ]
@@ -20,7 +22,7 @@ let speed = 10;
 
 
 // Game Function
-
+hightScore.textContent = `Hi Score : ${parseInt((localStorage.getItem('hscore')))}`
 function main(ctime){
     window.requestAnimationFrame(main);//Ager Ham iss Ko Na Likhen To Sirf Ek Hi Baar Print Hoga Ya chaleg
 
@@ -32,40 +34,38 @@ function main(ctime){
 }
 
 function isCollide(sarr){
-    if(sarr[0].x === 0){
-        return true
-    }
-    if(sarr[0].x === 18){
-        return true
-    }
-    if(sarr[0].y === 18){
-        return true
-    }
-    if(sarr[0].y === 0){
-        return true
-    }
     for(let i = 1 ; i < snakeArr.length; i++){
-        if(sarr[i].x === sarr[0].x && sarr[i].y === sarr[0].x){
-            return true
+        if(sarr[i].x === sarr[0].x && sarr[i].y === sarr[0].y){
+            return true;
         }
     }
+    if(sarr[0].x >= 18 || sarr[0].x <=0 || sarr[0].y >= 18 || sarr[0].y <=0){
+        return true;
+    }
+    // return false;
 }
+
+
 
 
 
 function gameEngine(){
     // Part 1 : Updating the Snake Array
     if(isCollide(snakeArr)){
+
         inputDir = {x : 0 , y : 0};
         alert("Game Over Press Any Key To Play Again");
         snakeArr = [ { x:13 , y : 15 } ]
         score = 0
-        
+        realScore.textContent = `Score : ${score}`
     }
 
     // If Snake Eten The Food
     if(snakeArr[0].y === food.y && snakeArr[0].x === food.x){
+        hightScoree.push(1);
         snakeArr.unshift({x : snakeArr[0].x + inputDir.x , y : snakeArr[0].y + inputDir.y});
+        score += 1
+        realScore.textContent = `Score : ${score}`
         let a = 2;
         let b = 16;
         food = {x : Math.round(a + (b - a)*Math.random()) , y : Math.round(a + (b - a)*Math.random())}
