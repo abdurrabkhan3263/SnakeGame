@@ -1,5 +1,5 @@
 // Game Constants & Variable
-let direction = {x : 0 , y : 0};
+let inputDir = {x : 0 , y : 0};
 
 
 
@@ -71,5 +71,22 @@ window.requestAnimationFrame(main);
 
 
 window.addEventListener('keydown' , e=>{
+    inputDir = {x : 0 , y : 1}
+    switch (e.key) {
+        case "ArrowUp":
+            console.log(e.key)
+            break;
+        case "ArrowDown":
+            console.log(e.key)
+            break;
+        case "ArrowRight":
+            console.log(e.key)
+            break;
+        case "ArrowLeft":
+            console.log(e.key)
+            break;
     
+        default:
+            break;
+    }
 })
