@@ -1,7 +1,6 @@
 // Game Constants & Variable
 let inputDir = {x : 0 , y : 0};
-let hightScoree = [];
-
+let highEval = 0;
 
 
 
@@ -22,7 +21,6 @@ let speed = 10;
 
 
 // Game Function
-hightScore.textContent = `Hi Score : ${parseInt((localStorage.getItem('hscore')))}`
 function main(ctime){
     window.requestAnimationFrame(main);//Ager Ham iss Ko Na Likhen To Sirf Ek Hi Baar Print Hoga Ya chaleg
 
@@ -45,6 +43,16 @@ function isCollide(sarr){
     // return false;
 }
 
+// HIGH SCORE FUNCTION
+let high = localStorage.getItem('hScore');
+if(high === null){
+    highEval = 0
+    localStorage.setItem('hScore' ,JSON.stringify(highEval));
+}
+else{
+    highEval = localStorage.getItem('hScore');
+    hightScore.innerHTML =  `Hi Score : ${JSON.parse(highEval)}`
+}
 
 
 
@@ -52,7 +60,8 @@ function isCollide(sarr){
 function gameEngine(){
     // Part 1 : Updating the Snake Array
     if(isCollide(snakeArr)){
-
+        speed = 10;
+        highEval = score;
         inputDir = {x : 0 , y : 0};
         alert("Game Over Press Any Key To Play Again");
         snakeArr = [ { x:13 , y : 15 } ]
@@ -62,13 +71,22 @@ function gameEngine(){
 
     // If Snake Eten The Food
     if(snakeArr[0].y === food.y && snakeArr[0].x === food.x){
-        hightScoree.push(1);
+
         snakeArr.unshift({x : snakeArr[0].x + inputDir.x , y : snakeArr[0].y + inputDir.y});
         score += 1
         realScore.textContent = `Score : ${score}`
         let a = 2;
         let b = 16;
         food = {x : Math.round(a + (b - a)*Math.random()) , y : Math.round(a + (b - a)*Math.random())}
+        if(score > highEval){
+            highEval = score
+            localStorage.setItem('hScore' , JSON.parse(highEval))
+            hightScore.innerHTML = `Hi Score : ${highEval}`
+        }
+        speed += 0.3;
+        if(speed > 15){
+            speed = 15;
+        }
     }
 
     // Moving The Snake
