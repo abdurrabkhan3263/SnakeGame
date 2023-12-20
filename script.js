@@ -8,6 +8,9 @@ let highEval = 0;
 const board = document.querySelector('#board');
 const realScore = document.querySelector('#rscore');
 const hightScore = document.querySelector('#hscore');
+let moveaudio = new Audio('01.mp3')
+let foodaudio = new Audio('02.mp3');
+let loseaudio = new Audio('03.mp3');
 let snakeArr = [
     { x:13 , y : 15 }
 ]
@@ -60,6 +63,7 @@ else{
 function gameEngine(){
     // Part 1 : Updating the Snake Array
     if(isCollide(snakeArr)){
+        loseaudio.play();
         speed = 10;
         highEval = score;
         inputDir = {x : 0 , y : 0};
@@ -71,7 +75,7 @@ function gameEngine(){
 
     // If Snake Eten The Food
     if(snakeArr[0].y === food.y && snakeArr[0].x === food.x){
-
+        moveaudio.pause();
         snakeArr.unshift({x : snakeArr[0].x + inputDir.x , y : snakeArr[0].y + inputDir.y});
         score += 1
         realScore.textContent = `Score : ${score}`
@@ -87,6 +91,7 @@ function gameEngine(){
         if(speed > 15){
             speed = 15;
         }
+        foodaudio.play();
     }
 
     // Moving The Snake
@@ -134,20 +139,28 @@ window.addEventListener('keydown' , e=>{
     inputDir = {x : 0 , y : 1}
     switch (e.key) {
         case "ArrowUp":
+            moveaudio.pause();
             inputDir.x = 0;
             inputDir.y = -1;
+            moveaudio.play();
             break;
         case "ArrowDown":
+            moveaudio.pause();
             inputDir.x = 0;
             inputDir.y = 1;
+            moveaudio.play();
             break;
         case "ArrowRight":
+            moveaudio.pause();
             inputDir.x = 1;
             inputDir.y = 0;
+            moveaudio.play();
             break;
         case "ArrowLeft":
+            moveaudio.pause();
             inputDir.x = -1;
             inputDir.y = 0;
+            moveaudio.play();
             break;
     
         default:
